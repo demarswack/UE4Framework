@@ -35,21 +35,22 @@ EGameStates ATP_FrameworkGameState::RequestGameState(EGameStates GameState)
 			IsGameStateCommmited = SetStateInProgress(IncomingGameState);
 		break;
 		}
-	}
 
+	}
+	
 	if (IsGameStateCommmited)
 	{
 		CurrentGameState = IncomingGameState;
 		return CurrentGameState;
 	}
 	
-	return LastGameState;
+	return CurrentGameState;
 }
 
 bool ATP_FrameworkGameState::SetStateStartGame_Implementation(EGameStates IncomingGameState)
 {
 	ATP_FrameworkPlayerController* PlayerController;
-	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstLocalPlayerFromController());
+	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstPlayerController());
 
 	if(!IsValid(PlayerController))
 	{
@@ -70,7 +71,7 @@ bool ATP_FrameworkGameState::SetStateStartGame_Implementation(EGameStates Incomi
 bool ATP_FrameworkGameState::SetStateEndGame_Implementation(EGameStates IncomingGameState)
 {
 	ATP_FrameworkPlayerController* PlayerController;
-	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstLocalPlayerFromController());
+	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstPlayerController());
 
 	if(!IsValid(PlayerController))
 	{
@@ -112,7 +113,7 @@ bool ATP_FrameworkGameState::SetStateMenu_Implementation(EGameStates IncomingGam
 bool ATP_FrameworkGameState::SetStateInProgress_Implementation(EGameStates IncomingGameState)
 {
 	ATP_FrameworkPlayerController* PlayerController;
-	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstLocalPlayerFromController());
+	PlayerController = Cast<ATP_FrameworkPlayerController>(GetWorld()->GetFirstPlayerController());
 	
 	if(!IsValid(PlayerController))
 	{

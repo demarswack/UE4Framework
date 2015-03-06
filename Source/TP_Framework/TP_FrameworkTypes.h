@@ -14,6 +14,7 @@ enum class EGameStates : uint8
 		GS_InProgress		UMETA(DisplayName="InProgress")
 };
 
+/** UStruct for UI Definition, to be used to allow or disallow UI Elements */
 USTRUCT()
 struct FUIDefinition
 {
@@ -24,6 +25,40 @@ struct FUIDefinition
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UIDefinition")
 	bool ShowPlayerHUD;
+};
+
+/** UStruct for Mouse Input Definition */
+USTRUCT()
+struct FMouseInputDefinition
+{
+   GENERATED_USTRUCT_BODY()
+
+   UPROPERTY(EditAnywhere, BlueprintReadWrite,  Category="Mouse Input Definition")
+   bool ShowMouse;
+
+   UPROPERTY(EditAnywhere, BlueprintReadWrite,  Category="Mouse Input Definition")
+   bool AllowClickEvents;
+
+   UPROPERTY(EditAnywhere, BlueprintReadWrite,  Category="Mouse Input Definition")
+   bool AllowMouseOverEvents;
+   
+};
+
+/** UStruct for Control Definition, to be used to allow or disallow Input */
+USTRUCT()
+struct FInputDefinition
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input Definition")
+	bool MovementControls;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input Definition")
+	bool LookControls;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input Definition")
+	FMouseInputDefinition MouseInput;
+
 };
 
 UCLASS()

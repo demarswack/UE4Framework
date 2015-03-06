@@ -4,7 +4,6 @@
 
 #include "GameFramework/GameMode.h"
 #include "TP_FrameworkTypes.h"
-#include "TP_FrameworkTypes.h"
 #include "TP_FrameworkMenuWidget.h"
 #include "TP_FrameworkPlayerHUDWidget.h"
 #include "TP_FrameworkGameMode.generated.h"
@@ -29,18 +28,17 @@ class TP_FRAMEWORK_API ATP_FrameworkGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
-private:
-	
-	class UTP_FrameworkMenuWidget* MenuWidget;
-	class UTP_FrameworkPlayerHUDWidget* PlayerHUDWidget;
-
 protected:
 
+	/** Class of Player HUD Widget */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
 	TSubclassOf<class UTP_FrameworkPlayerHUDWidget> PlayerHUDWidgetClass;
+
+	/** Class of Menu Widget */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
 	TSubclassOf<class UTP_FrameworkMenuWidget> MenuWidgetClass;
 
+	/** Override of BeingPlay() */
 	virtual void BeginPlay() override;
 
 public:

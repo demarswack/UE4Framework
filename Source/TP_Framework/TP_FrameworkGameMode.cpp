@@ -17,7 +17,6 @@ ATP_FrameworkGameMode::ATP_FrameworkGameMode(const FObjectInitializer& ObjectIni
 
 }
 
-
 void ATP_FrameworkGameMode::BeginPlay()
 {
 
@@ -37,24 +36,18 @@ void ATP_FrameworkGameMode::BeginPlay()
 			if(MenuWidgetClass)
 			{
 				PlayerController->MenuWidget = CreateWidget<UTP_FrameworkMenuWidget>(PlayerController, MenuWidgetClass);
+				PlayerController->MenuWidget->AddToViewport(100);
+				PlayerController->MenuWidget->SetVisibility(ESlateVisibility::Hidden);
 
-				if(IsValid(MenuWidget))
-				{
-					PlayerController->MenuWidget->AddToViewport();
-					PlayerController->MenuWidget->SetVisibility(ESlateVisibility::Hidden);
-				}
 			}
 
 			// Construction Player HUD Widget
 			if(PlayerHUDWidgetClass)
 			{
 				PlayerController->PlayerHUDWidget = CreateWidget<UTP_FrameworkPlayerHUDWidget>(PlayerController, PlayerHUDWidgetClass);
+				PlayerController->PlayerHUDWidget->AddToViewport(99);
+				PlayerController->PlayerHUDWidget->SetVisibility(ESlateVisibility::Hidden);
 
-				if(IsValid(PlayerHUDWidget))
-				{
-					PlayerController->MenuWidget->AddToViewport();
-					PlayerController->MenuWidget->SetVisibility(ESlateVisibility::Hidden);
-				}
 			}
 		}
 	}

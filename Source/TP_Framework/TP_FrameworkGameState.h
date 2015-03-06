@@ -16,16 +16,14 @@ class TP_FRAMEWORK_API ATP_FrameworkGameState : public AGameState
 {
 	GENERATED_BODY()
 
-private:
-	
-	/** If a game state is committed or not to be returned */
-	bool IsGameStateCommmited;
-
 protected:
 
 	// Game State Variables used for RequestGameState function
 	EGameStates CurrentGameState;
 	EGameStates LastGameState;
+
+	/** If a game state is committed or not to be returned */
+	bool IsGameStateCommmited;
 
 	class ATP_FrameworkGameMode* GameMode;
 
@@ -45,7 +43,7 @@ protected:
 	bool SetStateMenu_Implementation(EGameStates IncomingGameState);
 
 	/** Initialize InProgress State */
-	UFUNCTION(BlueprintImplementableEvent, Category = "Game States")
+	UFUNCTION(BlueprintNativeEvent, Category = "Game States")
 	bool SetStateInProgress(EGameStates IncomingGameState);
 	bool SetStateInProgress_Implementation(EGameStates IncomingGameState); 
 
@@ -63,11 +61,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game States")
 	EGameStates RequestGameState(EGameStates GameState);
 
+	/**
+	* Public function to get the Current Game State
+	*
+	* @return			Returns current Game State
+	*/
 	FORCEINLINE virtual EGameStates GetCurrentGameState() const
 	{
 		return CurrentGameState;	
 	}
 	
+	/**
+	* Public function to get the Last Game State
+	*
+	* @return			Returns Last Game State
+	*/
 	FORCEINLINE virtual EGameStates GetLastGameState() const
 	{
 		return LastGameState;	

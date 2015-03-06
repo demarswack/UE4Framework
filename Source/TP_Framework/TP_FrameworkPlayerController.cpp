@@ -29,17 +29,22 @@ EGameStates ATP_FrameworkPlayerController::GetGameState_Implementation()
 		{
 			case EGameStates::GS_StartGame:
 				SetUI(StartGameUI);
+				SetControls(StartGameInput);
 			break;
 			case EGameStates::GS_EndGame:
 				SetUI(EndGameUI);
+				SetControls(EndGameInput);
 			break;
 			case EGameStates::GS_Menu: 
 				SetUI(MenuUI);
+				SetControls(MenuInput);
 			break;
 			case EGameStates::GS_InProgress:
 				SetUI(InProgressUI);
+				SetControls(InProgressInput);
 			break;
 		}
+		return GameState->GetCurrentGameState();
 	}
 
 	return EGameStates::GS_StartGame;
@@ -68,18 +73,13 @@ void ATP_FrameworkPlayerController::SetUI_Implementation(FUIDefinition UIDefinit
 			{
 				MenuWidget->SetVisibility(ESlateVisibility::Hidden);
 			}
-			else
-			{
-				MenuWidget->AddToViewport();
-				MenuWidget->SetVisibility(ESlateVisibility::Hidden);
-			}
 		}
 	}
 
 	// Player HUD Widget
 	if (IsValid(PlayerHUDWidget))
 	{
-		if(UIDefinition.ShowMenuUI)
+		if(UIDefinition.ShowPlayerHUD)
 		{
 			if(PlayerHUDWidget->IsInViewport())
 			{
@@ -97,13 +97,54 @@ void ATP_FrameworkPlayerController::SetUI_Implementation(FUIDefinition UIDefinit
 			{
 				PlayerHUDWidget->SetVisibility(ESlateVisibility::Hidden);
 			}
-			else
-			{
-				PlayerHUDWidget->AddToViewport();
-				PlayerHUDWidget->SetVisibility(ESlateVisibility::Hidden);
-			}
 		}
 	}
+}
 
-	
+void ATP_FrameworkPlayerController::SetControls_Implementation(FInputDefinition InputDefinition)
+{
+	if(InputDefinition.MovementControls)
+	{
+		SetIgnoreMoveInput(false);
+	}
+	else
+	{
+		SetIgnoreMoveInput(true);	
+	}
+
+	if(InputDefinition.LookControls)
+	{
+		SetIgnoreLookInput(false);
+	}
+	else
+	{
+		SetIgnoreLookInput(true);	
+	}
+
+	if(InputDefinition.MouseInput.ShowMouse)
+	{
+		bShowMouseCursor = true;	
+	}
+	else
+	{
+		bShowMouseCursor = false;
+	}
+
+	if(InputDefinition.MouseInput.AllowClickEvents)
+	{
+		bEnableClickEvents = true;
+	}
+	else
+	{
+		bEnableClickEvents = false;	
+	}
+
+	if(InputDefinition.MouseInput.AllowMouseOverEvents)
+	{
+		bEnableMouseOverEvents = true;
+	}
+	else
+	{
+		bEnableMouseOverEvents = false;
+	}
 }
